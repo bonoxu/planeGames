@@ -121,13 +121,13 @@ class MyFirstGUI:
         for i in range(len(self.board)):
             buttons = []
             for j in range(len(self.board[i])):
-                myButton = Button(self.master, text="  ", command = lambda: self.greet(i,j))
+                myButton = Button(self.master, text="  ", command = lambda iTemp = i, jTemp = j: self.leftClick(iTemp,jTemp))
                 myButton.grid(row = i, column = j)
                 buttons.append(myButton)
             self.buttons.append(buttons)
-        #for i in range(len(self.board)):
-        #    for j in range(len(self.board[i])):
-        #        self.buttons[i][j].bind('<Button-1>', lambda e: self.greet(i,j))
+        for i in range(len(self.board)):
+            for j in range(len(self.board[i])):
+                self.buttons[i][j].bind('<Button-2>', lambda iTemp = i, jTemp = j: self.rightClick(event, iTemp,jTemp))
 
                 #self.buttons[i][j].configure(command=self.greet(i,j))
         #self.greet_button = Button(self.master, text="Greet", command=self.greet)
@@ -136,9 +136,17 @@ class MyFirstGUI:
         #self.close_button = Button(self.master, text="Close", command=self.master.quit)
         #self.close_button.grid(row = 1, column = 1)
 
-    def greet(self, i, j):
+    def leftClick(self, i, j):
+        #print i,j
+        if self.board[i][j].m_masked:
+            self.board[i][j].m_masked = False
+
+            self.buttons[i][j]["text"] = str(self.board[i][j].m_nearbyMine)
+        #self.buttons[i][j]["text"] = "a"
+
+    def rightClick(self, event):
         print i,j
-        self.buttons[i][j]["text"] = "a"
+        self.buttons[i][j]["text"] = "b"
 
 def visualiseGUI(board):
     root = Tk()
