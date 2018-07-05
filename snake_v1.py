@@ -8,7 +8,7 @@ snake = turtle.shape("circle")
 turtle.pensize(10)
 turtle.penup()
 
-cherry = 1
+cherry = 10
 t = 0
 x, y = 0, 0
 Vsnake = 10
@@ -20,8 +20,8 @@ def move():
     turtle.forward(Vsnake)
     turtle.stamp();
 
-    if cherry == 1:
-        cherry = 0
+    if cherry > 0:
+        cherry = cherry - 1
     else:
         turtle.clearstamps(1)
 
